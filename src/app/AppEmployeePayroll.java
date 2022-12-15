@@ -5,15 +5,16 @@ import java.util.Scanner;
 public class AppEmployeePayroll {
     public static void main(String[] args) {
 
-        char enterNewRecord;
+        char enterNewRecord = 'y';
 
         // Data Collection and Validation
         do {
             // Required Variables
             String employeeName;
             char payType;
-            double numberOfWeeklyHours;
+            double totalWeeklyHours;
             double hourlyRate;
+            double weeklyGrossPayForHourlyEmployee;
 
             // Required Objects Creation
             Scanner scanner = new Scanner(System.in);
@@ -36,8 +37,8 @@ public class AppEmployeePayroll {
             if (payType == 'h' || payType == 'H') {
                 while (true) {
                     System.out.print("Enter number of hours worked during week: ");
-                    numberOfWeeklyHours = scanner.nextInt();
-                    if (numberOfWeeklyHours >= 0 && numberOfWeeklyHours <= 60) {
+                    totalWeeklyHours = scanner.nextInt();
+                    if (totalWeeklyHours >= 0 && totalWeeklyHours <= 60) {
                         break;
                     } else {
                         System.out.println("\t\tInvalid number of hours worked during week");
@@ -48,28 +49,41 @@ public class AppEmployeePayroll {
                     System.out.print("Enter hourly rate: ");
                     hourlyRate = scanner.nextDouble();
                     if (hourlyRate >= 5.15 && hourlyRate <= 25) {
-                        // Need to call the relevant method
+                        weeklyGrossPayForHourlyEmployee = payroll.weeklyGrossPayForHourlyEmployee(totalWeeklyHours, hourlyRate);
                         break;
                     } else {
                         System.out.println("\t\tInvalid hourly rate");
                     }
                 }
+
+                // Information Display
+                System.out.println("\n-------------------------------------------------");
+                System.out.println("Weekly payroll information for " + employeeName);
+                System.out.println("Gross Pay\t$" + weeklyGrossPayForHourlyEmployee);
+                System.out.println("Federal Tax\t$");
+                System.out.println("Net Pay\t\t$");
+                System.out.print("\nDo you wish to proceed another employee (Y/N): ");
+                enterNewRecord = scanner.next().charAt(0);
+                System.out.println();
             }
 
             // Data Collection for Salaried Employee
             if (payType == 's' || payType == 'S') {
                 System.out.println("Data Collection: Salaried Employee");
+                /*
+                 *
+                 * */
+                // Information Display
+                System.out.println("\n-------------------------------------------------");
+                System.out.println("Weekly payroll information for " + employeeName);
+                System.out.println("Gross Pay\t$");
+                System.out.println("Federal Tax\t$");
+                System.out.println("Net Pay\t\t$");
+                System.out.print("\nDo you wish to proceed another employee (Y/N): ");
+                enterNewRecord = scanner.next().charAt(0);
+                System.out.println();
             }
 
-            // Information Display
-            System.out.println("\n-------------------------------------------------");
-            System.out.println("Weekly payroll information for " + employeeName);
-            System.out.println("Gross Pay\t$");
-            System.out.println("Federal Tax\t$");
-            System.out.println("Net Pay\t\t$");
-            System.out.print("\nDo you wish to proceed another employee (Y/N): ");
-            enterNewRecord = scanner.next().charAt(0);
-            System.out.println();
         } while (enterNewRecord == 'y' || enterNewRecord == 'Y');
     }
 }
