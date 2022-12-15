@@ -1,5 +1,6 @@
 package app;
 
+import java.text.DecimalFormat;
 import java.util.Scanner;
 
 public class AppEmployeePayroll {
@@ -15,10 +16,13 @@ public class AppEmployeePayroll {
             double totalWeeklyHours;
             double hourlyRate;
             double weeklyGrossPayForHourlyEmployee;
+            double weeklyFederalTaxForHourlyEmployee;
+            double weeklyNetPayForHourlyEmployee;
 
             // Required Objects Creation
             Scanner scanner = new Scanner(System.in);
             EmployeePayroll payroll = new EmployeePayroll();
+            DecimalFormat decimalFormat = new DecimalFormat("###.##");
 
             System.out.print("Enter employee name: ");
             employeeName = scanner.nextLine();
@@ -50,6 +54,8 @@ public class AppEmployeePayroll {
                     hourlyRate = scanner.nextDouble();
                     if (hourlyRate >= 5.15 && hourlyRate <= 25) {
                         weeklyGrossPayForHourlyEmployee = payroll.weeklyGrossPayForHourlyEmployee(totalWeeklyHours, hourlyRate);
+                        weeklyFederalTaxForHourlyEmployee = payroll.weeklyFederalTaxForHourlyEmployee();
+                        weeklyNetPayForHourlyEmployee = weeklyGrossPayForHourlyEmployee - weeklyFederalTaxForHourlyEmployee;
                         break;
                     } else {
                         System.out.println("\t\tInvalid hourly rate");
@@ -57,11 +63,10 @@ public class AppEmployeePayroll {
                 }
 
                 // Information Display
-                System.out.println("\n-------------------------------------------------");
-                System.out.println("Weekly payroll information for " + employeeName);
-                System.out.println("Gross Pay\t$" + weeklyGrossPayForHourlyEmployee);
-                System.out.println("Federal Tax\t$");
-                System.out.println("Net Pay\t\t$");
+                System.out.println("\nWeekly payroll information for " + employeeName);
+                System.out.println("Gross Pay\t$" + decimalFormat.format(weeklyGrossPayForHourlyEmployee));
+                System.out.println("Federal Tax\t$" + decimalFormat.format(weeklyFederalTaxForHourlyEmployee));
+                System.out.println("Net Pay\t\t$" + decimalFormat.format(weeklyNetPayForHourlyEmployee));
                 System.out.print("\nDo you wish to proceed another employee (Y/N): ");
                 enterNewRecord = scanner.next().charAt(0);
                 System.out.println();
@@ -69,13 +74,14 @@ public class AppEmployeePayroll {
 
             // Data Collection for Salaried Employee
             if (payType == 's' || payType == 'S') {
-                System.out.println("Data Collection: Salaried Employee");
                 /*
                  *
+                 *  PLEASE COMPLETE THE LOGICAL BLOCK HERE...
+                 *
                  * */
+
                 // Information Display
-                System.out.println("\n-------------------------------------------------");
-                System.out.println("Weekly payroll information for " + employeeName);
+                System.out.println("\nWeekly payroll information for " + employeeName);
                 System.out.println("Gross Pay\t$");
                 System.out.println("Federal Tax\t$");
                 System.out.println("Net Pay\t\t$");
